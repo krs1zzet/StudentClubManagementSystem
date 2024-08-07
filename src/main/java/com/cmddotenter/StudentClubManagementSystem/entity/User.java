@@ -1,8 +1,7 @@
 package com.cmddotenter.StudentClubManagementSystem.entity;
 
 import jakarta.persistence.*;
-
-import javax.management.relation.Role;
+import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 
 @Entity
 @Table(name = "users")
@@ -10,16 +9,20 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id",
+            updatable = false
+    )
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username"
+    )
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name="role_id")
+    @ManyToOne
+    @JoinColumn(name="role_id",nullable = false)
     private Role role;
 
 

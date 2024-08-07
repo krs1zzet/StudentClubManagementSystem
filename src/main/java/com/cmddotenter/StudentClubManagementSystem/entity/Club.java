@@ -3,30 +3,34 @@ package com.cmddotenter.StudentClubManagementSystem.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "clubs")
+public class Club {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "name")
     private String name;
 
-    public Role() {
+    @Column(name = "description")
+    private String description;
+
+    public Club() {
     }
 
-    public Role(Long id, String name) {
+    public Club(long id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,5 +40,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
