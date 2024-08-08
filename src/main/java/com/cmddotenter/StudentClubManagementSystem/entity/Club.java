@@ -20,11 +20,11 @@ public class Club {
     public Club() {
     }
 
-    public Club(long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+    public Club(String clubName, String clubDescription) {
+        this.name = clubName;
+        this.description = clubDescription;
     }
+
 
     public long getId() {
         return id;

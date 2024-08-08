@@ -1,7 +1,6 @@
 package com.cmddotenter.StudentClubManagementSystem.entity;
 
 import jakarta.persistence.*;
-import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 
 @Entity
 @Table(name = "users")
@@ -26,15 +25,17 @@ public class User {
     private Role role;
 
 
+
     public User() {
     }
 
-    public User(Long id, String username, String password, Role role) {
-        this.id = id;
+    public User( String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
+
+
 
     public Long getId() {
         return id;

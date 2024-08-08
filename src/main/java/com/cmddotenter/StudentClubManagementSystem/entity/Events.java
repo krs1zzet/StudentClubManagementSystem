@@ -1,9 +1,7 @@
 package com.cmddotenter.StudentClubManagementSystem.entity;
 
-import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import jakarta.persistence.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name = "events")
@@ -17,7 +15,7 @@ public class Events {
     private String name;
 
     @Column(name ="date")
-    private Date date;
+    private String date;
 
     @Column(name = "description")
     private String description;
@@ -30,8 +28,7 @@ public class Events {
     public Events() {
     }
 
-    public Events(long id, String name, Date date, String description, Club club) {
-        this.id = id;
+    public Events(String name, String date, String description, Club club) {
         this.name = name;
         this.date = date;
         this.description = description;
@@ -54,11 +51,11 @@ public class Events {
         this.name = name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

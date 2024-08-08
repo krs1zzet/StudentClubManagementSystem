@@ -16,13 +16,6 @@ public class StudentClubManagementSystemApplication {
 		SpringApplication.run(StudentClubManagementSystemApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner commandLineRunner(ClubRepository clubRepository) {
-		return args -> {
-			Club club = new Club(1L, "Programming Club", "Programming Club Description");
-			clubRepository.save(club);
-		};
-	}
 
 
 
