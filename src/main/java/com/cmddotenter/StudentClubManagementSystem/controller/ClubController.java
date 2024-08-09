@@ -3,10 +3,7 @@ package com.cmddotenter.StudentClubManagementSystem.controller;
 
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.service.ClubService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,13 +18,28 @@ public class ClubController {
     }
 
     @GetMapping("/clubs")
-    public List<Club> getAllClubs() {
-        return clubService.getAllClubs();
+    public List<Club> findAll(){
+        return clubService.findAll();
     }
 
-    @PostMapping ("/clubs")
-    public Club createClub(String clubName, String clubDescription) {
-        return clubService.createClub(clubName, clubDescription);
+    @PostMapping("/clubs")
+    public Club addClub(@RequestBody Club theClub){
+        theClub.setId(0);
+        return clubService.save(theClub);
+    }
+
+    @PutMapping("/clubs")
+    public Club updateClub(@RequestBody Club theClub){
+        return clubService.save(theClub);
+    }
+
+    @DeleteMapping("/clubs/{clubId}")
+    public void deleteClub(@PathVariable long clubId){
+        Club club = clubService.findById(clubId);
+        if(club == null){
+            throw new RuntimeException("Club id not found - " + clubId);
+        }
+        clubService.deleteById(clubId);
     }
 
 

@@ -7,42 +7,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClubServiceImpl implements ClubService {
 
-    private final ClubRepository clubRepository;
+    private ClubRepository clubRepository;
+
+    @Autowired
+
+    public ClubServiceImpl(ClubRepository theClubRepository){clubRepository =theClubRepository;}
 
 
+    @Override
+    public List<Club> findAll() {
+        return clubRepository.findAll();
+    }
 
-    public ClubServiceImpl(ClubRepository clubRepository) {
-        this.clubRepository = clubRepository;
+    @Override
+    public Club findById(long theId) {
+        Optional<Club> result = clubRepository.findById((long) theId);
+        if(result.isEmpty()) {
+            throw new RuntimeException("did not found club id - " + theId);//throw return gibi calisir
+        }
+        return result.get();
     }
 
     @Transactional
     @Override
-    public Club createClub(String clubName, String clubDescription) {
-        Club club = new Club(clubName, clubDescription);
-        return clubRepository.save(club);
+    public Club save(Club theClub) {
+       return clubRepository.save(theClub) ;
     }
 
+    @Transactional
     @Override
-    public Club findByName(String clubName) {
-        return clubRepository.findByName(clubName);
+    public void deleteById(long theId) {
+        clubRepository.deleteById(theId);
     }
-
-    @Override
-    public void deleteClubById(Long id) {
-        clubRepository.deleteById(id);
-
-    }
-
-    @Override
-    public List<Club> getAllClubs() {
-        return clubRepository.findAll();
-    }
-
-
 
 
 }

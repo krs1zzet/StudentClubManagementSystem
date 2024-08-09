@@ -5,8 +5,4 @@ import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 import java.util.List;
 
 public interface RoleService {
-    Role createRole(String name);
-    Role findByName(String name);
-    List<Role> getAllRoles();
-    void deleteRole(Long id);
 }

@@ -5,8 +5,11 @@ import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import java.util.List;
 
 public interface ClubService {
-    Club createClub(String clubName, String clubDescription);
-    Club findByName(String clubName);
-    void deleteClubById(Long id);
-    List<Club> getAllClubs();
+    List <Club> findAll();
+
+    Club findById(long theId);
+
+    Club save(Club theClub);
+
+    void deleteById(long theId);
 }

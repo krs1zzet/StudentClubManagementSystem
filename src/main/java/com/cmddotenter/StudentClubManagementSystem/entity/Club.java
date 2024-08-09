@@ -25,6 +25,12 @@ public class Club {
         this.description = clubDescription;
     }
 
+    public Club(long id, String clubName, String clubDescription) {
+        this.id = id;
+        this.name = clubName;
+        this.description = clubDescription;
+    }
+
 
     public long getId() {
         return id;

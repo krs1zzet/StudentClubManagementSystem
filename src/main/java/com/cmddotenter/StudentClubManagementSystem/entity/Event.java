@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "events")
-public class Events {
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -20,15 +20,16 @@ public class Events {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    //cascade type incele clubu kaldirmasin
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "club_id")
     private Club club;
 
 
-    public Events() {
+    public Event() {
     }
 
-    public Events(String name, String date, String description, Club club) {
+    public Event(String name, String date, String description, Club club) {
         this.name = name;
         this.date = date;
         this.description = description;
