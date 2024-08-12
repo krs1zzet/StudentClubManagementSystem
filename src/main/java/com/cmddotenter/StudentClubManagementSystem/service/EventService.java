@@ -1,20 +1,13 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
-import com.cmddotenter.StudentClubManagementSystem.controller.dto.CreateEventDto;
-import com.cmddotenter.StudentClubManagementSystem.entity.Event;
+import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 
 import java.util.List;
 
-
-
-
 public interface EventService {
-
-    List<Event> findAll();
-
-    Event findById(long theId);
-
-    Event save(CreateEventDto theEvent);
-
+    List<EventDTO> findAll();
+    EventDTO findById(long theId);
+    EventDTO save(EventDTO theEvent);
     void deleteById(long theId);
+
 }
