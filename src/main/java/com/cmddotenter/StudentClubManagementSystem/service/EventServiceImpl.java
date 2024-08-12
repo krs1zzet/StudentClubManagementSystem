@@ -38,7 +38,11 @@ public class EventServiceImpl implements EventService {
     }
 
 
-
+/*
+*  ekleyecegin rolu bul
+*
+*
+* */
 
     @Transactional
     @Override
@@ -46,7 +50,7 @@ public class EventServiceImpl implements EventService {
         ClubDTO existingClub = clubService.findById(theEvent.getClubId());
         Event theEventEntity = convertToEntity(theEvent); // DTO olarak gelen datayi entitye ceviriyoruz
         theEventEntity.setClub(new Club(existingClub.getId(), existingClub.getClubName(), existingClub.getClubDescription()));
-        return convertToDTO(eventRepository.save(theEventEntity)); // kaydedildigni belirtmek icin donduruyoruz
+        return convertToDTO(eventRepository.save(theEventEntity)); // kaydedildigni belirtmek icin return edip ekrana veriyoruz
     }
 
     @Transactional
@@ -75,6 +79,7 @@ public class EventServiceImpl implements EventService {
         event.setName(eventDTO.getName());
         event.setDate(eventDTO.getDate());
         event.setDescription(eventDTO.getDescription());
+        // we dont set club for event because we save manually in save method
         return event;
     }
 }
