@@ -1,15 +1,16 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
+import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 
 import java.util.List;
 
 public interface ClubService {
-    List <Club> findAll();
+    List <ClubDTO> findAll();
 
-    Club findById(long theId);
+    ClubDTO findById(long theId);
 
-    Club save(Club theClub);
+    ClubDTO save(ClubDTO theClub);
 
     void deleteById(long theId);
 }

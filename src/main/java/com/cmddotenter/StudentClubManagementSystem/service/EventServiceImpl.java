@@ -1,5 +1,6 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
+import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
@@ -42,9 +43,9 @@ public class EventServiceImpl implements EventService {
     @Transactional
     @Override
     public EventDTO save(EventDTO theEvent) {
-        Club existingClub = clubService.findById(theEvent.getClubId());
+        ClubDTO existingClub = clubService.findById(theEvent.getClubId());
         Event theEventEntity = convertToEntity(theEvent);
-        theEventEntity.setClub(existingClub);
+        theEventEntity.setClub(new Club(existingClub.getId(), existingClub.getClubName(), existingClub.getClubDescription()));
         Event savedEvent = eventRepository.save(theEventEntity);
         return convertToDTO(savedEvent);
     }

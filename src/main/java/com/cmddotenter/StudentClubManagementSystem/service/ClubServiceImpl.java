@@ -1,5 +1,6 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
+import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.repo.ClubRepository;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClubServiceImpl implements ClubService {
@@ -20,29 +22,47 @@ public class ClubServiceImpl implements ClubService {
 
 
     @Override
-    public List<Club> findAll() {
-        return clubRepository.findAll();
+    public List<ClubDTO> findAll() {
+       return clubRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public Club findById(long theId) {
+    public ClubDTO findById(long theId) {
         Optional<Club> result = clubRepository.findById((long) theId);
         if(result.isEmpty()) {
             throw new RuntimeException("did not found club id - " + theId);//throw return gibi calisir
         }
-        return result.get();
+        return convertToDTO(result.get());
     }
 
     @Transactional
     @Override
-    public Club save(Club theClub) {
-       return clubRepository.save(theClub) ;
+    public ClubDTO save(ClubDTO theClub) {
+        Club club = convertToEntity(theClub);
+        Club savedClub = clubRepository.save(club);
+        return convertToDTO(savedClub);
     }
 
     @Transactional
     @Override
     public void deleteById(long theId) {
         clubRepository.deleteById(theId);
+    }
+
+    private ClubDTO convertToDTO(Club club) {
+        ClubDTO clubDTO = new ClubDTO();
+        clubDTO.setId(club.getId());
+        clubDTO.setClubName(club.getName());
+        clubDTO.setClubDescription(club.getDescription());
+        return clubDTO;
+    }
+
+    private Club convertToEntity(ClubDTO clubDTO) {
+        Club club = new Club();
+        club.setId(clubDTO.getId());
+        club.setName(clubDTO.getClubName());
+        club.setDescription(clubDTO.getClubDescription());
+        return club;
     }
 
 
