@@ -1,6 +1,7 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
+import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 
 import java.util.List;
 
@@ -9,5 +10,7 @@ public interface EventService {
     EventDTO findById(long theId);
     EventDTO save(EventDTO theEvent);
     void deleteById(long theId);
+    Event addUserToEvent(long eventId, long userId);
+
 
 }

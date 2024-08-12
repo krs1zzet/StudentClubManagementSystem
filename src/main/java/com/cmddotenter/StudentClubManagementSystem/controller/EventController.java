@@ -1,6 +1,7 @@
 package com.cmddotenter.StudentClubManagementSystem.controller;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
+import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 import com.cmddotenter.StudentClubManagementSystem.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,10 @@ public class EventController {
     @DeleteMapping("/events/{eventId}")
     public void deleteEvent(@PathVariable long eventId) {
         eventService.deleteById(eventId);
+    }
+
+    @PutMapping("/events/{eventId}/users/{userId}")
+    public Event addUserToEvent(@PathVariable long eventId, @PathVariable long userId) {
+        return eventService.addUserToEvent(eventId, userId);
     }
 }

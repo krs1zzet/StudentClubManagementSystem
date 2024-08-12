@@ -1,9 +1,17 @@
 package com.cmddotenter.StudentClubManagementSystem.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "clubs")
+
 public class Club {
 
     @Id
@@ -16,43 +24,4 @@ public class Club {
 
     @Column(name = "description")
     private String description;
-
-    public Club() {
-    }
-
-    public Club(String clubName, String clubDescription) {
-        this.name = clubName;
-        this.description = clubDescription;
-    }
-
-    public Club(long id, String clubName, String clubDescription) {
-        this.id = id;
-        this.name = clubName;
-        this.description = clubDescription;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

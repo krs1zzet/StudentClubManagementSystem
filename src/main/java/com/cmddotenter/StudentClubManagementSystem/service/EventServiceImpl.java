@@ -4,7 +4,9 @@ import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
+import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
+import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,13 @@ public class EventServiceImpl implements EventService {
 
     private final ClubService clubService;
     private final EventRepository eventRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public EventServiceImpl(EventRepository theEventRepository, ClubService clubService) {
+    public EventServiceImpl(EventRepository theEventRepository, ClubService clubService, UserRepository userRepository) {
         eventRepository = theEventRepository;
         this.clubService = clubService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -59,6 +63,15 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(theId);
     }
 
+    @Transactional
+    @Override
+    public Event addUserToEvent(long eventId, long userId) {
+        Event theEvent = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Did not find event id - " + eventId));
+        User theUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Did not find user id - " + userId));
+        theEvent.setUser(theUser);
+        return eventRepository.save(theEvent);
+    }
+
     private EventDTO convertToDTO(Event event) {
         EventDTO eventDTO = new EventDTO();
 
@@ -79,7 +92,6 @@ public class EventServiceImpl implements EventService {
         event.setName(eventDTO.getName());
         event.setDate(eventDTO.getDate());
         event.setDescription(eventDTO.getDescription());
-        // we dont set club for event because we save manually in save method
         return event;
     }
 }

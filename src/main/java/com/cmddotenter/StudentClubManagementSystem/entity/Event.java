@@ -1,8 +1,13 @@
 package com.cmddotenter.StudentClubManagementSystem.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "events")
 public class Event {
@@ -14,7 +19,7 @@ public class Event {
     @Column(name = "name")
     private String name;
 
-    @Column(name ="date")
+    @Column(name = "date")
     private String date;
 
     @Column(name = "description")
@@ -22,57 +27,11 @@ public class Event {
 
     //cascade type incele clubu kaldirmasin
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "club_id",nullable = true)
     private Club club;
 
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id",nullable = true)
+    private User user;
 
-    public Event() {
-    }
-
-    public Event(String name, String date, String description, Club club) {
-        this.name = name;
-        this.date = date;
-        this.description = description;
-        this.club = club;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
 }
