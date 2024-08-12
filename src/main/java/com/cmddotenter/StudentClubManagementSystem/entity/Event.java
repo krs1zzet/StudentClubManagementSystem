@@ -21,7 +21,7 @@ public class Event {
     private String description;
 
     //cascade type incele clubu kaldirmasin
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "club_id")
     private Club club;
 

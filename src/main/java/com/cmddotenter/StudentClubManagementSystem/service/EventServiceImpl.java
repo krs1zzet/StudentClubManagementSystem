@@ -4,7 +4,6 @@ import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
-import com.cmddotenter.StudentClubManagementSystem.repo.ClubRepository;
 import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,10 @@ public class EventServiceImpl implements EventService {
 
     private final ClubService clubService;
     private final EventRepository eventRepository;
-    private final ClubRepository clubRepository;
 
     @Autowired
-    public EventServiceImpl(EventRepository theEventRepository, ClubRepository theClubRepository, ClubService clubService) {
+    public EventServiceImpl(EventRepository theEventRepository, ClubService clubService) {
         eventRepository = theEventRepository;
-        clubRepository = theClubRepository;
         this.clubService = clubService;
     }
 
@@ -40,14 +37,16 @@ public class EventServiceImpl implements EventService {
         return convertToDTO(theEvent);
     }
 
+
+
+
     @Transactional
     @Override
     public EventDTO save(EventDTO theEvent) {
         ClubDTO existingClub = clubService.findById(theEvent.getClubId());
-        Event theEventEntity = convertToEntity(theEvent);
+        Event theEventEntity = convertToEntity(theEvent); // DTO olarak gelen datayi entitye ceviriyoruz
         theEventEntity.setClub(new Club(existingClub.getId(), existingClub.getClubName(), existingClub.getClubDescription()));
-        Event savedEvent = eventRepository.save(theEventEntity);
-        return convertToDTO(savedEvent);
+        return convertToDTO(eventRepository.save(theEventEntity)); // kaydedildigni belirtmek icin donduruyoruz
     }
 
     @Transactional
@@ -58,10 +57,12 @@ public class EventServiceImpl implements EventService {
 
     private EventDTO convertToDTO(Event event) {
         EventDTO eventDTO = new EventDTO();
+
         eventDTO.setId(event.getId());
         eventDTO.setName(event.getName());
         eventDTO.setDate(event.getDate());
         eventDTO.setDescription(event.getDescription());
+
         if (event.getClub() != null) {
             eventDTO.setClubId(event.getClub().getId());
         }

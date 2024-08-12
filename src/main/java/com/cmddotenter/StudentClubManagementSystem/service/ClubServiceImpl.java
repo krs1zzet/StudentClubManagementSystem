@@ -28,7 +28,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public ClubDTO findById(long theId) {
-        Optional<Club> result = clubRepository.findById((long) theId);
+        Optional<Club> result = clubRepository.findById(theId);
         if(result.isEmpty()) {
             throw new RuntimeException("did not found club id - " + theId);//throw return gibi calisir
         }
@@ -38,9 +38,7 @@ public class ClubServiceImpl implements ClubService {
     @Transactional
     @Override
     public ClubDTO save(ClubDTO theClub) {
-        Club club = convertToEntity(theClub);
-        Club savedClub = clubRepository.save(club);
-        return convertToDTO(savedClub);
+        return convertToDTO(clubRepository.save(convertToEntity(theClub)));
     }
 
     @Transactional
