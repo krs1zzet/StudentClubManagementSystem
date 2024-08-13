@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -13,6 +15,7 @@ public class EventDTO {
     private String date;
     private String description;
     private long clubId;
+    private List<UserDTO> attendees;
 
 
 }

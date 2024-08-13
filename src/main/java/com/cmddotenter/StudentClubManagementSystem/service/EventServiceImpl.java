@@ -24,13 +24,15 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final EventDtoConverter eventDtoConverter;
     private final EventEntityConverter eventEntityConverter;
+    private final UserRepository userRepository;
 
     @Autowired
-    public EventServiceImpl(EventEntityConverter eventEntityConverter,EventDtoConverter eventDtoConverter, EventRepository theEventRepository, ClubService clubService, UserRepository userRepository) {
+    public EventServiceImpl(EventEntityConverter eventEntityConverter, EventDtoConverter eventDtoConverter, EventRepository theEventRepository, ClubService clubService, UserRepository userRepository) {
         eventRepository = theEventRepository;
         this.clubService = clubService;
         this.eventDtoConverter = eventDtoConverter;
         this.eventEntityConverter = eventEntityConverter;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -61,6 +63,27 @@ public class EventServiceImpl implements EventService {
     public void deleteById(long theId) {
         eventRepository.deleteById(theId);
     }
+
+    @Transactional
+    @Override
+    public  EventDTO addUserToEvent(Long eventId, Long userId){
+        Optional<Event> event = eventRepository.findById(eventId);
+        Optional<User> user= userRepository.findById(userId);
+
+        if(event.isPresent() && user.isPresent()){
+            Event theEvent = event.get();
+            User theUser = user.get();
+            theEvent.getAttendees().add(theUser);
+            theUser.getEvents().add(theEvent);
+            return eventDtoConverter.convert(eventRepository.save(theEvent));
+        }
+        else{
+            throw new RuntimeException("Event or User not found");
+        }
+
+
+    }
+
 
 
 

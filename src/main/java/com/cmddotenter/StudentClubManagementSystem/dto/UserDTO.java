@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -12,4 +14,6 @@ public class UserDTO {
     private  String name;
     private  String password;
     private  Long roleId;
+    private List<EventDTO> events;
+
 }

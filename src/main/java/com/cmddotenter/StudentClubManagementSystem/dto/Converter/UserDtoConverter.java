@@ -1,5 +1,6 @@
 package com.cmddotenter.StudentClubManagementSystem.dto.Converter;
 
+import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.UserDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import org.springframework.stereotype.Component;
@@ -17,9 +18,15 @@ public class UserDtoConverter {
                 from.getId(),
                 from.getUsername(),
                 from.getPassword(),
-
-                from.getRole().getId()
-
+                from.getRole().getId(),
+                from.getEvents().stream().map(event -> new EventDTO(
+                        event.getId(),
+                        event.getName(),
+                        event.getDate(),
+                        event.getDescription(),
+                        event.getClub().getId(),
+                        null
+                )).collect(Collectors.toList())
         );
     }
 
