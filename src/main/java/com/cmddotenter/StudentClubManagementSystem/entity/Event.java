@@ -30,8 +30,6 @@ public class Event {
     @JoinColumn(name = "club_id",nullable = true)
     private Club club;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id",nullable = true)
-    private User user;
+
 
 }
