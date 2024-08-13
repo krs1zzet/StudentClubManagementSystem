@@ -43,4 +43,9 @@ public class EventController {
         eventService.addUserToEvent(eventId, userId);
     }
 
+    @DeleteMapping("/events/{eventId}/users/{userId}")
+    public void removeUserFromEvent(@PathVariable long eventId, @PathVariable long userId) {
+        eventService.deleteUserFromEvent(eventId, userId);
+    }
+
 }

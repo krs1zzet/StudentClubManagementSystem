@@ -10,7 +10,6 @@ import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
 import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,7 +60,7 @@ public class EventServiceImpl implements EventService {
 
     @Transactional
     @Override
-    public Event addUserToEvent(Long eventId, Long userId) {
+    public EventDTO addUserToEvent(Long eventId, Long userId) {
         // Find the event by ID, or throw an exception if not found
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Did not find event id - " + eventId));
@@ -74,7 +73,23 @@ public class EventServiceImpl implements EventService {
         event.getAttendees().add(user);
 
         // Save the updated event (this also handles the join table update)
-        return eventRepository.save(event);
+        return convertToDTO(eventRepository.save(event));
+    }
+
+    public void deleteUserFromEvent(Long eventId, Long userId) {
+        // Find the event by ID, or throw an exception if not found
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new RuntimeException("Did not find event id - " + eventId));
+
+        // Find the user by ID, or throw an exception if not found
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Did not find user id - " + userId));
+
+        // Remove the user from the event's attendees list
+        event.getAttendees().remove(user);
+
+        // Save the updated event (this also handles the join table update)
+        eventRepository.save(event);
     }
 
 
@@ -90,10 +105,8 @@ public class EventServiceImpl implements EventService {
         if (event.getClub() != null) {
             eventDTO.setClubId(event.getClub().getId());
         }
-        if (event.getAttendees() != null) {
-            eventDTO.setAttendees(event.getAttendees().stream()
-                    .map(this::convertToUserDTO)  // Convert each User to UserDTO
-                    .collect(Collectors.toList())); // Collect into a List<UserDTO>
+        if(event.getAttendees()!=null){
+            eventDTO.setAttendees(event.getAttendees().stream().map(this::convertToUserDTO).collect(Collectors.toList()));
         }
         return eventDTO;
     }

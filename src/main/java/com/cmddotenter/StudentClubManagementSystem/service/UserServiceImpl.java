@@ -53,7 +53,6 @@ public class UserServiceImpl implements  UserService {
         UserDTO userDTO = new UserDTO();
          userDTO.setId(user.getId());
          userDTO.setName(user.getUsername());
-         userDTO.setPassword(user.getPassword());
          if (user.getRole() != null) {
              userDTO.setRoleId(user.getRole().getId());
          }
