@@ -2,6 +2,8 @@ package com.cmddotenter.StudentClubManagementSystem.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class EventDTO {
     private long id;
@@ -9,5 +11,7 @@ public class EventDTO {
     private String date;
     private String description;
     private long clubId;
-    private long userId;
+    private  List<UserDTO> attendees;
+
+
 }
