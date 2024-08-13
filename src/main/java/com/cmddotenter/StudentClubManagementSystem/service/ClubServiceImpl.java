@@ -1,6 +1,8 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.Converter.ClubDtoConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.Converter.ClubEntityConverter;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.repo.ClubRepository;
 import jakarta.transaction.Transactional;
@@ -15,15 +17,20 @@ import java.util.stream.Collectors;
 public class ClubServiceImpl implements ClubService {
 
     private ClubRepository clubRepository;
+    private ClubDtoConverter clubDtoConverter;
+    private ClubEntityConverter clubEntityConverter;
 
     @Autowired
 
-    public ClubServiceImpl(ClubRepository theClubRepository){clubRepository =theClubRepository;}
+    public ClubServiceImpl(ClubRepository theClubRepository, ClubDtoConverter clubDtoConverter , ClubEntityConverter clubEntityConverter){
+        this.clubEntityConverter= clubEntityConverter;
+        clubRepository =theClubRepository;
+        this.clubDtoConverter = clubDtoConverter;}
 
 
     @Override
     public List<ClubDTO> findAll() {
-       return clubRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+       return clubDtoConverter.convert(clubRepository.findAll());
     }
 
     @Override
@@ -32,13 +39,13 @@ public class ClubServiceImpl implements ClubService {
         if(result.isEmpty()) {
             throw new RuntimeException("did not found club id - " + theId);//throw return gibi calisir
         }
-        return convertToDTO(result.get());
+        return clubDtoConverter.convert(result.get());
     }
 
     @Transactional
     @Override
     public ClubDTO save(ClubDTO theClub) {
-        return convertToDTO(clubRepository.save(convertToEntity(theClub)));
+        return clubDtoConverter.convert(clubRepository.save(clubEntityConverter.convert(theClub)));
     }
 
     @Transactional
@@ -47,21 +54,9 @@ public class ClubServiceImpl implements ClubService {
         clubRepository.deleteById(theId);
     }
 
-    private ClubDTO convertToDTO(Club club) {
-        ClubDTO clubDTO = new ClubDTO();
-        clubDTO.setId(club.getId());
-        clubDTO.setClubName(club.getName());
-        clubDTO.setClubDescription(club.getDescription());
-        return clubDTO;
-    }
 
-    private Club convertToEntity(ClubDTO clubDTO) {
-        Club club = new Club();
-        club.setId(clubDTO.getId());
-        club.setName(clubDTO.getClubName());
-        club.setDescription(clubDTO.getClubDescription());
-        return club;
-    }
+
+
 
 
 }
