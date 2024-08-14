@@ -15,7 +15,6 @@ public class EventDTO {
     private String date;
     private String description;
     private long clubId;
-    private List<UserDTO> attendees;
 
 
 }

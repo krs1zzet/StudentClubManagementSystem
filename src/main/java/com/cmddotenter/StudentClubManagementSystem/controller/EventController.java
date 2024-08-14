@@ -38,10 +38,10 @@ public class EventController {
         eventService.deleteById(eventId);
     }
 
-    @PostMapping("/events/{eventId}/users/{userId}")
-    public EventDTO addUserToEvent(@PathVariable Long eventId, @PathVariable Long userId) {
-        return eventService.addUserToEvent(eventId, userId);
-    }
+//    @PostMapping("/events/{eventId}/users/{userId}")
+//    public EventDTO addUserToEvent(@PathVariable Long eventId, @PathVariable Long userId) {
+//        return eventService.addUserToEvent(eventId, userId);
+//    }
 
 
 }

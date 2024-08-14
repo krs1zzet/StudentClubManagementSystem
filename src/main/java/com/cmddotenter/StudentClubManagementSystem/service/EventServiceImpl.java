@@ -64,25 +64,9 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(theId);
     }
 
-    @Transactional
-    @Override
-    public  EventDTO addUserToEvent(Long eventId, Long userId){
-        Optional<Event> event = eventRepository.findById(eventId);
-        Optional<User> user= userRepository.findById(userId);
-
-        if(event.isPresent() && user.isPresent()){
-            Event theEvent = event.get();
-            User theUser = user.get();
-            theEvent.getAttendees().add(theUser);
-            theUser.getEvents().add(theEvent);
-            return eventDtoConverter.convert(eventRepository.save(theEvent));
-        }
-        else{
-            throw new RuntimeException("Event or User not found");
-        }
 
 
-    }
+
 
 
 

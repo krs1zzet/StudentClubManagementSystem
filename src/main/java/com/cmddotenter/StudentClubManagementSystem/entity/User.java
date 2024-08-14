@@ -32,8 +32,7 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @ManyToMany(mappedBy = "attendees")
-    private List<Event> events;
+
 
     
 

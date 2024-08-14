@@ -10,7 +10,7 @@ public interface EventService {
     EventDTO findById(long theId);
     EventDTO save(EventDTO theEvent);
     void deleteById(long theId);
-    EventDTO addUserToEvent(Long eventId, Long userId);
+//    EventDTO addUserToEvent(Long eventId, Long userId);
 
 
 }

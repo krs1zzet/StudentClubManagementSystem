@@ -14,19 +14,10 @@ public class UserDtoConverter {
 
     public UserDTO convert(User from) {
         return new UserDTO(
-                //bunlarin sirasini yanlis yere yazarsan veri ciktisi yanlis gosteriyor
                 from.getId(),
                 from.getUsername(),
                 from.getPassword(),
-                from.getRole().getId(),
-                from.getEvents().stream().map(event -> new EventDTO(
-                        event.getId(),
-                        event.getName(),
-                        event.getDate(),
-                        event.getDescription(),
-                        event.getClub().getId(),
-                        null
-                )).collect(Collectors.toList())
+                from.getRole().getId()
         );
     }
 

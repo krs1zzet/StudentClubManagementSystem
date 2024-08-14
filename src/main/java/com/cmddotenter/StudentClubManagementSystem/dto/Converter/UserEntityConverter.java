@@ -11,8 +11,7 @@ public class UserEntityConverter {
                 from.getId(),
                 from.getName(),
                 from.getPassword(),
-                null, //bu logic zaten save methodunda kullaniliyor
-                    null
+                null
         );
 
     }

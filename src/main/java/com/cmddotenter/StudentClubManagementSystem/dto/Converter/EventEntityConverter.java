@@ -16,7 +16,6 @@ public class EventEntityConverter {
         from.getName(),
         from.getDate(),
         from.getDescription(),
-                null,
                 null
         );
     }
