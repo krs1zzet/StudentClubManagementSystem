@@ -2,11 +2,10 @@ package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.EventDtoConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.Converter.EventEntityConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.EventEntityConverter;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
-import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
 import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import jakarta.transaction.Transactional;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {

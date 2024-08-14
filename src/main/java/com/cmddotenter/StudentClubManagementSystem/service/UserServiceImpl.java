@@ -1,19 +1,16 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.UserDtoConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.Converter.UserEntityConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.UserEntityConverter;
 import com.cmddotenter.StudentClubManagementSystem.dto.RoleDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.UserDTO;
-import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 import com.cmddotenter.StudentClubManagementSystem.entity.User;
-import com.cmddotenter.StudentClubManagementSystem.repo.RoleRepository;
 import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements  UserService {

@@ -1,11 +1,7 @@
-package com.cmddotenter.StudentClubManagementSystem.dto.Converter;
+package com.cmddotenter.StudentClubManagementSystem.dto.request;
 
-import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.RoleDTO;
-import com.cmddotenter.StudentClubManagementSystem.dto.UserDTO;
-import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 import com.cmddotenter.StudentClubManagementSystem.entity.Role;
-import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

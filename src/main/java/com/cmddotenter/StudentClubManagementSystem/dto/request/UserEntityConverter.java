@@ -1,4 +1,4 @@
-package com.cmddotenter.StudentClubManagementSystem.dto.Converter;
+package com.cmddotenter.StudentClubManagementSystem.dto.request;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.UserDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.User;

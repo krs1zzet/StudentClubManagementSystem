@@ -2,7 +2,7 @@ package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.ClubDtoConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.Converter.ClubEntityConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.ClubEntityConverter;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.repo.ClubRepository;
 import jakarta.transaction.Transactional;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ClubServiceImpl implements ClubService {
