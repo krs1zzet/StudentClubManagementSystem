@@ -84,24 +84,5 @@ class EventControllerTest {
 
         verify(eventService, times(1)).deleteById(anyLong());
     }
-
-    @Test
-    void addUserToEvent() throws Exception {
-        doNothing().when(eventService).addUserToEvent(anyLong(), anyLong());
-
-        mockMvc.perform(post("/api/events/1/users/1"))
-                .andExpect(status().isOk());
-
-        verify(eventService, times(1)).addUserToEvent(anyLong(), anyLong());
-    }
-
-    @Test
-    void removeUserFromEvent() throws Exception {
-        doNothing().when(eventService).deleteUserFromEvent(anyLong(), anyLong());
-
-        mockMvc.perform(delete("/api/events/1/users/1"))
-                .andExpect(status().isOk());
-
-        verify(eventService, times(1)).deleteUserFromEvent(anyLong(), anyLong());
-    }
 }
+

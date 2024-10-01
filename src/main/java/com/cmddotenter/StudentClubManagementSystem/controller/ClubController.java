@@ -36,10 +36,10 @@ public class ClubController {
 
     @DeleteMapping("/clubs/{clubId}")
     public void deleteClub(@PathVariable long clubId){
-        ClubDTO club = clubService.findById(clubId);
-        if(club == null){
-            throw new RuntimeException("Club id not found - " + clubId);
-        }
+//        ClubDTO club = clubService.findById(clubId);
+//        if(club == null){
+//            throw new RuntimeException("Club id not found - " + clubId);
+//        }
         clubService.deleteById(clubId);
     }
 

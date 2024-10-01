@@ -2,6 +2,7 @@ package com.cmddotenter.StudentClubManagementSystem.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
+@Builder
 @Table(name = "users")
 public class User {
 
@@ -29,7 +31,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id", nullable = true)
     private Role role;
 
 
