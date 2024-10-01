@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS event_attendees;
+
+CREATE TABLE event_attendees (
+                                 event_id BIGINT NOT NULL,
+                                 user_id BIGINT NOT NULL,
+                                 PRIMARY KEY (event_id, user_id),
+                                 FOREIGN KEY (event_id) REFERENCES events(id),
+                                 FOREIGN KEY (user_id) REFERENCES users(id)
+);
