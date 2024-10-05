@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class EventDTOConverter {
+public class EventDtoConverter {
 
     public EventDTO convert(Event from){
         return new EventDTO(
