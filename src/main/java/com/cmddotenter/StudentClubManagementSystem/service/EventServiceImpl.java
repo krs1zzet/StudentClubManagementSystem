@@ -4,8 +4,10 @@ import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.EventDtoConverter;
 import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateEventRequest;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.RegisterUserToEventRequest;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
+import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
 import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import jakarta.transaction.Transactional;
@@ -20,13 +22,14 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final EventDtoConverter eventDtoConverter;
+    private final UserRepository userRepository;
 
 
     @Autowired
-    public EventServiceImpl( EventDtoConverter eventDtoConverter, EventRepository theEventRepository, ClubService clubService, UserRepository userRepository) {
-        eventRepository = theEventRepository;;
+    public EventServiceImpl(EventDtoConverter eventDtoConverter, EventRepository theEventRepository, UserRepository userRepository) {
+        eventRepository = theEventRepository;
         this.eventDtoConverter = eventDtoConverter;
-
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -49,6 +52,13 @@ public class EventServiceImpl implements EventService {
         theEvent.setDescription(request.getDescription());
         theEvent.setDate(request.getDate());
         eventRepository.save(theEvent);
+    }
+    @Override
+    public void registerUserToEvent(RegisterUserToEventRequest request) {
+        Event event = eventRepository.findById(request.getEventId()).orElseThrow(() -> new RuntimeException("Event not found"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+        event.getRegisteredUsers().add(user);
+        eventRepository.save(event);
     }
 
     @Transactional

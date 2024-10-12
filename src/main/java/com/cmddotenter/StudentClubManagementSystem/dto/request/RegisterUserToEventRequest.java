@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class BaseEventRequest {
-    private String name;
-    private String date;
-    private String description;
-    private Long clubId;
-}
+@NoArgsConstructor
+@Data
+public class RegisterUserToEventRequest {
+    private Long eventId;
+    private Long userId;
+    }
+
