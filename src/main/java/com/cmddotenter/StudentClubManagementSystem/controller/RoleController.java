@@ -1,8 +1,12 @@
 package com.cmddotenter.StudentClubManagementSystem.controller;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.RoleDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateRoleRequest;
 import com.cmddotenter.StudentClubManagementSystem.service.RoleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class RoleController {
 
+    private static final Logger log = LoggerFactory.getLogger(RoleController.class);
     private final RoleService roleService;
 
     @Autowired
@@ -25,13 +30,19 @@ public class RoleController {
     }
 
     @PostMapping("/roles")
-    public RoleDTO addRole(@RequestBody RoleDTO role) {
-        return roleService.save(role);
+    public ResponseEntity<Void> createRole(@RequestBody CreateRoleRequest request) {
+        roleService.save(request);
+        log.info("Role added");
+        return ResponseEntity.ok().build();
+
     }
 
     @PutMapping("/roles")
-    public RoleDTO updateRole(@RequestBody RoleDTO role) {
-        return roleService.save(role);
+    public ResponseEntity<Void> updateRole(@RequestBody CreateRoleRequest request) {
+      roleService.save(request);
+      log.info("Role updated");
+        return ResponseEntity.ok().build();
+
     }
 
     @DeleteMapping("/roles/{roleId}")

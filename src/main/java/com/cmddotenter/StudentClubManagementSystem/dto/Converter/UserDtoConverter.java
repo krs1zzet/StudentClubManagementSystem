@@ -10,19 +10,15 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserDtoConverter {
-
-
     public UserDTO convert(User from) {
         return new UserDTO(
                 from.getId(),
                 from.getUsername(),
-                from.getPassword(),
-                from.getRole().getId()
+                from.getPassword()
         );
     }
 
-    public List<UserDTO> convert (List<User> from ){
+    public List<UserDTO> convert(List<User> from) {
         return from.stream().map(this::convert).collect(Collectors.toList());
     }
-
 }

@@ -1,9 +1,13 @@
 package com.cmddotenter.StudentClubManagementSystem.controller;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateEventRequest;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 import com.cmddotenter.StudentClubManagementSystem.service.EventService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class EventController {
+    private static final Logger log = LoggerFactory.getLogger(EventController.class);
     private final EventService eventService;
 
     @Autowired
@@ -24,13 +29,17 @@ public class EventController {
     }
 
     @PostMapping("/events")
-    public EventDTO addEvent(@RequestBody EventDTO event) {
-        return eventService.save(event);
+    public ResponseEntity<Void> createEvent(@RequestBody CreateEventRequest request) {
+        eventService.save(request);
+        log.info("Event added");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/events")
-    public EventDTO updateEvent(@RequestBody EventDTO event) {
-        return eventService.save(event);
+    public ResponseEntity<Void> updateEvent(@RequestBody CreateEventRequest request) {
+        eventService.save(request);
+        log.info("Event updated");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/events/{eventId}")

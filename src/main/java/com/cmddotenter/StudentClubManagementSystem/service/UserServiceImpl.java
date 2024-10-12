@@ -1,10 +1,8 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.UserDtoConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.request.UserEntityConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.RoleDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateUserRequest;
 import com.cmddotenter.StudentClubManagementSystem.dto.UserDTO;
-import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import com.cmddotenter.StudentClubManagementSystem.repo.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,15 +15,11 @@ public class UserServiceImpl implements  UserService {
 
 
     private final UserRepository userRepository;
-    private final RoleService roleService;
     private final UserDtoConverter userDtoConverter;
-    private final UserEntityConverter userEntityConverter;
 
-    public UserServiceImpl(UserRepository userRepository,RoleService roleService, UserDtoConverter userDtoConverter,UserEntityConverter userEntityConverter) {
+    public UserServiceImpl(UserRepository userRepository, UserDtoConverter userDtoConverter) {
         this.userRepository = userRepository;
-        this.roleService = roleService;
         this.userDtoConverter = userDtoConverter;
-        this.userEntityConverter = userEntityConverter;
     }
 
     @Override
@@ -41,11 +35,11 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public UserDTO save(UserDTO userDTO) {
-        RoleDTO existingRole = roleService.findById(userDTO.getRoleId());
-        User theUser = userEntityConverter.convert(userDTO);
-        theUser.setRole(new Role(existingRole.getId(),existingRole.getName()));
-        return userDtoConverter.convert(userRepository.save(theUser));
+    public void save(CreateUserRequest request) {
+        User theUser = new User();
+        theUser.setUsername(request.getUsername());
+        theUser.setPassword(request.getPassword());
+        userRepository.save(theUser);
     }
 
     @Override

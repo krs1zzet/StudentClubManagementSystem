@@ -3,6 +3,7 @@ package com.cmddotenter.StudentClubManagementSystem.service;
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.ClubDtoConverter;
 import com.cmddotenter.StudentClubManagementSystem.dto.request.ClubEntityConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateClubRequest;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.repo.ClubRepository;
 import jakarta.transaction.Transactional;
@@ -35,16 +36,18 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public ClubDTO findById(long theId) {
         Optional<Club> result = clubRepository.findById(theId);
-        if(result.isEmpty()) {
-            throw new RuntimeException("did not found club id - " + theId);//throw return gibi calisir
-        }
-        return clubDtoConverter.convert(result.get());
+        Club theClub = result.orElseThrow(() -> new RuntimeException("Did not find club id - " + theId));
+        return clubDtoConverter.convert(theClub);
     }
 
     @Transactional
     @Override
-    public ClubDTO save(ClubDTO theClub) {
-        return clubDtoConverter.convert(clubRepository.save(clubEntityConverter.convert(theClub)));
+    public void createClub(CreateClubRequest request) {
+        Club theClub = new Club();
+        theClub.setName(request.getClubName());
+        theClub.setDescription(request.getClubDescription());
+        clubRepository.save(theClub);
+
     }
 
     @Transactional

@@ -8,17 +8,16 @@ import java.util.List;
 
 @Component
 public class EventDtoConverter {
-
-    public EventDTO convert(Event from){
+    public EventDTO convert(Event from) {
         return new EventDTO(
                 from.getId(),
                 from.getName(),
                 from.getDate(),
-                from.getDescription(),
-                from.getClub().getId()
+                from.getDescription()
         );
     }
-    public List<EventDTO> convert(List<Event> from){
-        return from.stream().map(this::convert).collect(java.util.stream.Collectors.toList());
+
+    public List<EventDTO> convert(List<Event> from) {
+        return from.stream().map(this::convert).toList();
     }
 }

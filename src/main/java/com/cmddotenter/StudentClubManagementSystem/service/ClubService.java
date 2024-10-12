@@ -1,6 +1,8 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateClubRequest;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateEventRequest;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ public interface ClubService {
 
     ClubDTO findById(long theId);
 
-    ClubDTO save(ClubDTO theClub);
+    void createClub(CreateClubRequest request);
 
     void deleteById(long theId);
 }

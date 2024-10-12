@@ -2,8 +2,13 @@ package com.cmddotenter.StudentClubManagementSystem.controller;
 
 
 import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateClubRequest;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateEventRequest;
 import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.service.ClubService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ClubController {
 
+    private static final Logger log = LoggerFactory.getLogger(ClubController.class);
     private final ClubService clubService;
 
     public ClubController(ClubService clubService) {
@@ -19,19 +25,24 @@ public class ClubController {
     }
 
     @GetMapping("/clubs")
-    public List<ClubDTO> findAll(){
-        return clubService.findAll();
+    public ResponseEntity<List<ClubDTO>> findAll(){
+        List<ClubDTO> clubDTOList = clubService.findAll();
+        log.info("Clubs found");
+        return ResponseEntity.ok(clubDTOList);
     }
 
     @PostMapping("/clubs")
-    public ClubDTO addClub(@RequestBody ClubDTO theClub){
-        theClub.setId(0);
-        return clubService.save(theClub);
+    public ResponseEntity<Void> addClub(@RequestBody CreateClubRequest request){
+        clubService.createClub(request);
+        log.info("Club added");
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/clubs")
-    public ClubDTO updateClub(@RequestBody ClubDTO theClub){
-        return clubService.save(theClub);
+    public ResponseEntity<Void> updateClub(@RequestBody CreateClubRequest request){
+        clubService.createClub(request);
+        log.info("Club updated");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/clubs/{clubId}")

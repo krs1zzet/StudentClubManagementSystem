@@ -14,7 +14,4 @@ public class EventDTO {
     private String name;
     private String date;
     private String description;
-    private long clubId;
-
-
 }

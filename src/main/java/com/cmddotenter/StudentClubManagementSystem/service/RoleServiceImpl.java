@@ -1,7 +1,7 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.RoleDtoConverter;
-import com.cmddotenter.StudentClubManagementSystem.dto.request.RoleEntityConverter;
+import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateRoleRequest;
 import com.cmddotenter.StudentClubManagementSystem.dto.RoleDTO;
 import com.cmddotenter.StudentClubManagementSystem.entity.Role;
 import com.cmddotenter.StudentClubManagementSystem.repo.RoleRepository;
@@ -16,12 +16,10 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository RoleRepository;
     private final RoleDtoConverter roleDtoConverter;
-    private final RoleEntityConverter roleEntityConverter;
 
-    public RoleServiceImpl(RoleRepository theRoleRepository,RoleDtoConverter roleDtoConverter, RoleEntityConverter roleEntityConverter) {
+    public RoleServiceImpl(RoleRepository theRoleRepository,RoleDtoConverter roleDtoConverter) {
         RoleRepository = theRoleRepository;
         this.roleDtoConverter = roleDtoConverter;
-        this.roleEntityConverter = roleEntityConverter;
 
     }
 
@@ -40,8 +38,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Transactional
     @Override
-    public RoleDTO save(RoleDTO theRole) {
-        return roleDtoConverter.convert(RoleRepository.save(roleEntityConverter.convert(theRole)));
+    public void save(CreateRoleRequest request) {
+        Role theRole = new Role();
+        theRole.setName(request.getName());
+        RoleRepository.save(theRole);
     }
 
     @Transactional

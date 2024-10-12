@@ -25,11 +25,11 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .username("Test User")
                 .password("Test Password")
-                .role(null)
                 .build();
 
         //Act
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
+        User savedUser = userRepository.findById(user.getId()).orElse(null);
 
         //Assert
 
@@ -44,7 +44,6 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .username("Test User")
                 .password("Test Password")
-                .role(null)
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -65,7 +64,6 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .username("Test User")
                 .password("Test Password")
-                .role(null)
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -86,13 +84,11 @@ public class UserRepositoryTests {
         User user1 = User.builder()
                 .username("Test User 1")
                 .password("Test Password 1")
-                .role(null)
                 .build();
 
         User user2 = User.builder()
                 .username("Test User 2")
                 .password("Test Password 2")
-                .role(null)
                 .build();
 
         userRepository.save(user1);
