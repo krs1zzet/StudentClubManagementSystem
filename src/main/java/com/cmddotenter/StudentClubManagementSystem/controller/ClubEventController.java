@@ -24,13 +24,6 @@ public class ClubEventController {
         // Return the created ClubEvent object as a response
         return ResponseEntity.ok(clubEvent);
     }
-    @GetMapping("/club-event")
-    public ResponseEntity<ClubEvent> getClubEvent(@RequestParam Long clubId, @RequestParam Long eventId) {
-        // Call the service to assign the club to the event
-        ClubEvent clubEvent = clubEventService.assignClubToEvent(clubId, eventId);
 
-        // Return the created ClubEvent object as a response
-        return ResponseEntity.ok(clubEvent);
-    }
 
 }

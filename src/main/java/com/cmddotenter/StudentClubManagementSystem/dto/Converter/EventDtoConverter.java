@@ -13,9 +13,7 @@ public class EventDtoConverter {
                 from.getId(),
                 from.getName(),
                 from.getDate(),
-                from.getDescription(),
-                from.getClub() != null ? from.getClub().getId() : null,
-                from.getUsers() != null ? from.getUsers().stream().map(user -> user.getId()).toList() : null
+                from.getDescription()
         );
     }
 
