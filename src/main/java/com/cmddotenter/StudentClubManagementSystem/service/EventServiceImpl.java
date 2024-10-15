@@ -1,11 +1,8 @@
 package com.cmddotenter.StudentClubManagementSystem.service;
 
-import com.cmddotenter.StudentClubManagementSystem.dto.ClubDTO;
 import com.cmddotenter.StudentClubManagementSystem.dto.Converter.EventDtoConverter;
 import com.cmddotenter.StudentClubManagementSystem.dto.request.CreateEventRequest;
 import com.cmddotenter.StudentClubManagementSystem.dto.EventDTO;
-import com.cmddotenter.StudentClubManagementSystem.dto.request.RegisterUserToEventRequest;
-import com.cmddotenter.StudentClubManagementSystem.entity.Club;
 import com.cmddotenter.StudentClubManagementSystem.entity.Event;
 import com.cmddotenter.StudentClubManagementSystem.entity.User;
 import com.cmddotenter.StudentClubManagementSystem.repo.EventRepository;
@@ -53,13 +50,7 @@ public class EventServiceImpl implements EventService {
         theEvent.setDate(request.getDate());
         eventRepository.save(theEvent);
     }
-    @Override
-    public void registerUserToEvent(RegisterUserToEventRequest request) {
-        Event event = eventRepository.findById(request.getEventId()).orElseThrow(() -> new RuntimeException("Event not found"));
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-        event.getRegisteredUsers().add(user);
-        eventRepository.save(event);
-    }
+
 
     @Transactional
     @Override
